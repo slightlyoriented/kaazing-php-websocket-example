@@ -1,6 +1,11 @@
 Example for PHP WebSocket using Kaazing's WebSocket Gateway and a Multi Threaded Socket Server based on pcntl_fork()
 ====================
 
+These are a series of examples getting progressively more functional of using WebSocket on a client, standalone or a browser to connect to backend services without the overhead of polling. The last example demonstrates how a REST API can benefit from using WebSocket using caching strategies.
+
+The first example simply show how to write a PHP server which can use WebSocket provided by the Kaazing WebSocket Gatway (Free Community Edition). The second example, show how to connect to an API and sets the stage for the third example which shows the true speed and power of WebSocket.
+
+
 Requirements
 ---------------------
 * PHP5	

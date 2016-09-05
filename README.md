@@ -5,6 +5,7 @@ These are a series of examples getting progressively more functional of using We
 
 The first example simply show how to write a PHP server which can use WebSocket provided by the Kaazing WebSocket Gatway (Free Community Edition). The second example, show how to connect to an API and sets the stage for the third example which shows the true speed and power of WebSocket.
 
+Kaazing (https://kaazing.com) also offers the Enterprise Edition which has advanced security, high availability, scaling and other features. A connection limited free version can be downloaded from http://kaazing.com/download .
 
 Requirements
 ---------------------

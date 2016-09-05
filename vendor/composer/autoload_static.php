@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit56a1ccd0eae600fae2d1c84d46f52a42
 {
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'WebSocket\\' => 10,
+        ),
         'P' => 
         array (
             'Predis\\' => 7,
@@ -14,6 +18,10 @@ class ComposerStaticInit56a1ccd0eae600fae2d1c84d46f52a42
     );
 
     public static $prefixDirsPsr4 = array (
+        'WebSocket\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/textalk/websocket/lib',
+        ),
         'Predis\\' => 
         array (
             0 => __DIR__ . '/..' . '/predis/predis/src',

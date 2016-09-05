@@ -13,7 +13,6 @@ Requirements
 * sockets (http://www.php.net/manual/en/sockets.installation.php)
 * pcntl (http://www.php.net/manual/en/pcntl.installation.php)
 * pcntl on the Mac use Homebrew
-* cd to `php-ws`
 * `php composer.phar install`
 
 Run Echo Example
@@ -22,7 +21,7 @@ In the root directory
 * `./kaazing-gateway-community-5.1.0/bin/gateway.start` 
 * `php server.php`
 * In less than a minute you should see the Kaazing gateway connect to the PHP server, please wait until this happens
-* `php php-ws/ws-client.php`
+* `./ws-client.php`
 * You should see 10 requests come through in the terminal running server.php
 * You should also see this echoed back to the terminal running ws-client.php
 
@@ -36,9 +35,9 @@ In the root directory
 * Start the Kaazing gateway with `./kaazing-gateway-community-5.1.0/bin/gateway.start` 
 * Start the PHP server which will get prices and descriptions from the API with `php indian-mutual-fund-server.php`
 * In less than a minute you should see the Kaazing gateway connect to the PHP server, please wait until this happens, the Kaazing gateway sets up a pool of initial connections to improve performance
-* Get a list of mutual funds with *birla* in the description `php php-ws/indian-mutual-fund-client.php LIST birla`
+* Get a list of mutual funds with *birla* in the description `./indian-mutual-fund-client.php LIST birla`
 * You should see a list of 10 funds with their identifiers on the left and description on the right
-* Pick one of them and run `php php-ws/indian-mutual-fund-client.php PRICE <identifier>`
+* Pick one of them and run `./indian-mutual-fund-client.php PRICE <identifier>`
 
 Run Indian Mutual Fund Example with Caching
 -------------------------------------------
@@ -52,9 +51,9 @@ In the root directory
 * Start the Kaazing gateway with `./kaazing-gateway-community-5.1.0/bin/gateway.start` 
 * Start the PHP server which will get prices and descriptions from the API with `php indian-mutual-fund-caching-server.php`
 * In less than a minute you should see the Kaazing gateway connect to the PHP server, please wait until this happens, the Kaazing gateway sets up a pool of initial connections to improve performance
-* Get a list of mutual funds with *birla* in the description `php php-ws/indian-mutual-fund-client.php LIST birla`
+* Get a list of mutual funds with *birla* in the description `./indian-mutual-fund-client.php LIST birla`
 * You should see a list of 10 funds with their identifiers on the left and description on the right
-* Pick one of them and run `php php-ws/indian-mutual-fund-client.php PRICE <identifier>`
+* Pick one of them and run `./indian-mutual-fund-client.php PRICE <identifier>`
 * Run it again with the same identifier and you will see how much faster it returns
 * The cache is expired after 60 seconds
 * With a combination of WebSocket and caching amazing response times are possible!

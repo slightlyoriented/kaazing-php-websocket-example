@@ -22,12 +22,31 @@ In the root directory
 
 Run Indian Mutual Fund Example
 ------------------------------
-In the root directory
+Steps
 * Sign up at https://market.mashape.com/nviror/mutual-fund-nav-india for the API and get a key
 * Add the key to your environment variables with `export MASHAPE_KEY=<Your Key>`
+
+In the root directory
 * Start the Kaazing gateway with `./kaazing-gateway-community-5.1.0/bin/gateway.start` 
 * Start the PHP server which will get prices and descriptions from the API with `php indian-mutual-fund-server.php`
 * In less than a minute you should see the Kaazing gateway connect to the PHP server, please wait until this happens, the Kaazing gateway sets up a pool of initial connections to improve performance
 * Get a list of mutual funds with *birla* in the description `php php-ws/indian-mutual-fund-server.php LIST birla`
 * You should see a list of 10 funds with their identifiers on the left and description on the right
 * Pick one of them and run `php php-ws/indian-mutual-fund-server.php PRICE <identifier>`
+
+Run Indian Mutual Fund Example with Caching
+-------------------------------------------
+Steps
+* Install Redis
+* Sign up at https://market.mashape.com/nviror/mutual-fund-nav-india for the API and get a key
+* Add the key to your environment variables with `export MASHAPE_KEY=<Your Key>`
+
+In the root directory
+* Start the Kaazing gateway with `./kaazing-gateway-community-5.1.0/bin/gateway.start` 
+* Start the PHP server which will get prices and descriptions from the API with `php indian-mutual-fund-caching-server.php`
+* In less than a minute you should see the Kaazing gateway connect to the PHP server, please wait until this happens, the Kaazing gateway sets up a pool of initial connections to improve performance
+* Get a list of mutual funds with *birla* in the description `php php-ws/indian-mutual-fund-server.php LIST birla`
+* You should see a list of 10 funds with their identifiers on the left and description on the right
+* Pick one of them and run `php php-ws/indian-mutual-fund-server.php PRICE <identifier>`
+* Run it again with the same identifier and you will see how much faster it returns
+* With a combination of WebSocket and caching amazing response times are possible!

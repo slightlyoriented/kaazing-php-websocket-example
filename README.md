@@ -57,15 +57,15 @@ In the root directory
 * Run it again with the same identifier and you will see how much faster it returns
 * Example
 	Without Caching
-	...
+	```
 	131670 02/09/2016 45.11 +0.10 +0.22%     Birla Sun Life Dynamic Asset Allocation Fund - Direct Plan - Growth Option
 	Round trip response time: 1.2733249664307 seconds
-	...
+	```
 	With Caching
-	...
+	```
 	131670 02/09/2016 45.11 +0.10 +0.22%     Birla Sun Life Dynamic Asset Allocation Fund - Direct Plan - Growth Option
 	Round trip response time: 0.010161161422729 seconds
-	...
+	```
 * The cache is expired after 60 seconds
 * With a combination of WebSocket and caching amazing response times are possible!
 * This particular API is rate limited to 1 request per second, however, with this pattern, you can support more users

@@ -59,3 +59,11 @@ In the root directory
 * With a combination of WebSocket and caching amazing response times are possible!
 * This particular API is rate limited to 1 request per second, however, with this pattern, you can support more users
 * Since this is mutual fund nav data, which changes once a day, you would set the cache timer to a much higher number, or a specific time of day
+
+Typical Errors
+--------------
+* Most common is to leave the Gateway running while trying to start another one
+* Same for the PHP server
+* Get rate limited by the API shown with a tme out message
+* Forgetting to set the environment variable MASHAPE_KEY with your key so the API will work.
+* An API key error is shown as a 401 response on the PHP server output log

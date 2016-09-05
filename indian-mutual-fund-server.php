@@ -73,7 +73,7 @@ function imfCommandRouter( $request ) {
 	echo "Request: {$request}\n";
 	$commandLine = explode( ' ', $request );
 	if ( count( $commandLine ) < 2 ) {
-		break;
+		return "Too few parameters\n";
 	};
 	switch (strtolower( $commandLine[0] ) ) {
 		case 'list':
@@ -98,7 +98,9 @@ function imfPrice( $request ) {
 	  ),
 	  "{\"scodes\":[\"{$request}\"]}"
 	);
-	$result = '';
+	echo "Response code: {$response->code}\n";
+
+	$result = "";
 	foreach ($response->body as $key => $value) {
 		$result .= $key." ".$value->date." ".$value->nav." ".$value->change->value." ".$value->change->percent."     ".$value->fund;
 	}	
@@ -116,6 +118,7 @@ function imfSearch( $request ) {
 	  ),
 	  "{\"search\":\"{$request}\"}"
 	);
+	echo "Response code: {$response->code}\n";
 
 	$result = "";
 	foreach ($response->body as $key => $value) {

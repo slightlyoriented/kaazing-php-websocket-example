@@ -24,7 +24,7 @@ Run Indian Mutual Fund Example
 ------------------------------
 In the root directory
 * Sign up at https://market.mashape.com/nviror/mutual-fund-nav-india for the API and get a key
-* Add the key to your environment variables with export MASHAPE_KEY=<Your Key>
+* Add the key to your environment variables with `export MASHAPE_KEY=<Your Key>`
 * Start the Kaazing gateway with `./kaazing-gateway-community-5.1.0/bin/gateway.start` 
 * Start the PHP server which will get prices and descriptions from the API with `php indian-mutual-fund-server.php`
 * In less than a minute you should see the Kaazing gateway connect to the PHP server, please wait until this happens

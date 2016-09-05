@@ -67,7 +67,7 @@ Example With Caching
 Round trip response time: 0.010161161422729 seconds
 ```
 
-Note the big difference in response times? 1.27 seconds vs. 0.01 seconds! Over 100x faster! With WebSocket, you could now support hundreds of queries per second against the cache.
+Note the big difference in response times? `1.27 seconds vs. 0.01 seconds`! Over 100x faster! With WebSocket, you could now support hundreds of queries per second against the cache.
 
 The cache is expired after 60 seconds. With a combination of WebSocket and caching amazing response times are possible! This particular API is rate limited to 1 request per second, however, with this pattern, you can support more users. Since this is mutual fund nav data, which changes once a day, you would set the cache timer to a much higher number, or a specific time of day.
 

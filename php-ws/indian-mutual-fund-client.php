@@ -19,13 +19,30 @@ if( count($argv) < 3 ) {
 	exit ( 1 );
 };
 
-$client = new Client("ws://localhost:7000/call_pick_up");
+function send_data($commands, $client) {
+	$start = milliseconds();
+	$client->send("{$commands[1]} {$commands[2]}");
+	$diff = milliseconds() - $start;
+	return $diff;
+}
 
-$start = milliseconds();
-$client->send("{$argv[1]} {$argv[2]}");
-$diff = milliseconds() - $start;
-echo "{$client->receive()}\n";
-echo "Elapsed time: {$diff} milliseconds\n";
+
+$client = new Client("ws://localhost:7000/call_pick_up", array('timeout' => 10));
+
+// Send data and trap for time out
+try {
+	$diff = send_data($argv, $client);
+	echo "{$client->receive()}\n";
+	echo "Round trip response time: {$diff} milliseconds\n";
+} catch (Exception $e) {
+	if ($e instanceof WebSocket\ConnectionException) {
+		echo "Timed out.\n";
+	} else { 
+		throw $e; 
+	}
+} finally {
+	$client->send("exit");
+}
 
 // Shutdown gracefully
 $client->send("exit");

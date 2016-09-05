@@ -1,4 +1,6 @@
 <?php
+// Kaazing Corporation. Enterprise grade, scale, security and support for WebSocket.
+// The Inventors of WebSocket
 
 /**
  * Check dependencies

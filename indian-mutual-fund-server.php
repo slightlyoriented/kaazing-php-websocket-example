@@ -1,4 +1,6 @@
 <?php
+// Kaazing Corporation. Enterprise grade, scale, security and support for WebSocket.
+// The Inventors of WebSocket
 
 require_once 'vendor/autoload.php';
 /**
@@ -13,6 +15,12 @@ if( ! extension_loaded('pcntl' ) ) {
 	echo "This example requires PCNTL extension (http://www.php.net/manual/en/pcntl.installation.php)\n";
 	exit(-1);
 }
+
+
+function milliseconds() {
+    $mt = explode(' ', microtime());
+    return $mt[1] * 1000 + round($mt[0] * 1000);
+};
 
 /**
  * Connection handler
@@ -50,7 +58,10 @@ function onConnect( $client ) {
 		}
 		else {
 			echo "Client IP: {$client->getAddress()} ";
+			$start = milliseconds();
 			$client->send( imfCommandRouter( $read ) );
+			$diff = milliseconds() - $start;
+			echo "Round trip response time: {$diff} milliseconds\n";
 		}
 	}
 	$client->close();
@@ -77,8 +88,8 @@ function imfCommandRouter( $request ) {
 }
 
 function imfPrice( $request ) {
-	echo "Price: {$request}\n";
-	$mashape_key = 'eMgiTAYGa2mshZLjB48mo0BN2rmap1T40IdjsnwOoaoyOjSFNv';
+	echo "Price: {$request}\n";	
+	$mashape_key = getenv ( "MASHAPE_KEY" );
 	$response = Unirest\Request::post("https://mutualfundsnav.p.mashape.com/",
 	  array(
 	    "X-Mashape-Key" => $mashape_key,
@@ -96,7 +107,7 @@ function imfPrice( $request ) {
 
 function imfSearch( $request ) {
 	echo "Search: {$request}\n";
-	$mashape_key = 'eMgiTAYGa2mshZLjB48mo0BN2rmap1T40IdjsnwOoaoyOjSFNv';
+	$mashape_key = getenv ( "MASHAPE_KEY" );
 	$response = Unirest\Request::post("https://mutualfundsnav.p.mashape.com/",
 	  array(
 	    "X-Mashape-Key" => $mashape_key,

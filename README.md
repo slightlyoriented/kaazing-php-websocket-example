@@ -1,4 +1,4 @@
-Example for PHP WebSocket using Kaazing's WebSocket Gateway and a Muilti Threaded Socket Server based on pcntl_fork()
+Example for PHP WebSocket using Kaazing's WebSocket Gateway and a Multi Threaded Socket Server based on pcntl_fork()
 ====================
 
 Requirements
@@ -15,7 +15,7 @@ Run
 In the root directory
 * ./kaazing-gateway-community-5.1.0/bin/gateway.start 
 * php server.php
-* In less than a minute you should see the Kaazing gateway connect to the PHP server
+* In less than a minute you should see the Kaazing gateway connect to the PHP server, please wait until this happens
 * php php-ws/ws-client.php
 * You should see 10 requests come through in the terminal running server.php
 * You should also see this echoed back to the terminal running ws-client.php

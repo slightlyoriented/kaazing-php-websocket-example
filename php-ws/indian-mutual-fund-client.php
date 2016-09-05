@@ -9,6 +9,11 @@ require('vendor/autoload.php');
 
 use WebSocket\Client;
 
+function milliseconds() {
+    $mt = explode(' ', microtime());
+    return $mt[1] * 1000 + round($mt[0] * 1000);
+};
+
 if( count($argv) < 3 ) {
 	echo "Usage: LIST <pattern> or PRICE <mutual fund identifier number>\n";
 	exit ( 1 );
@@ -16,8 +21,11 @@ if( count($argv) < 3 ) {
 
 $client = new Client("ws://localhost:7000/call_pick_up");
 
+$start = milliseconds();
 $client->send("{$argv[1]} {$argv[2]}");
+$diff = milliseconds() - $start;
 echo "{$client->receive()}\n";
+echo "Elapsed time: {$diff} milliseconds\n";
 
 // Shutdown gracefully
 $client->send("exit");

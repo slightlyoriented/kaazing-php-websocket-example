@@ -50,5 +50,5 @@ In the root directory
 * Pick one of them and run `php php-ws/indian-mutual-fund-server.php PRICE <identifier>`
 * Run it again with the same identifier and you will see how much faster it returns
 * With a combination of WebSocket and caching amazing response times are possible!
-* This particular API is ragte limited to 1 request per second, however, with this pattern, you can support more users
+* This particular API is rate limited to 1 request per second, however, with this pattern, you can support more users
 * Since this is mutual fund nav data, which changes once a day, you would set the cache timer to a much higher number, or a time of day

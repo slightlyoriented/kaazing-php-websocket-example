@@ -1,4 +1,4 @@
-Example for PHP WebSocket using a Muilti Threaded Socket Server based on pcntl_fork()
+Example for PHP WebSocket using Kaazing's WebSocket Gateway and a Muilti Threaded Socket Server based on pcntl_fork()
 ====================
 
 Requirements

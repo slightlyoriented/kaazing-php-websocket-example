@@ -17,7 +17,8 @@ if( ! extension_loaded('pcntl' ) ) {
 }
 
 // Initialize Redis
-$redis = new Predis\Client();
+$redis = new Redis\Client();
+$redis->connect("127.0.0.1", 6379, 9999)
 
 function milliseconds() {
     $mt = explode(' ', microtime());
@@ -61,7 +62,7 @@ function onConnect( $client ) {
 		else {
 			echo "Client IP: {$client->getAddress()} ";
 			$start = milliseconds();
-			$client->send( imfCommandRouter( $read ) );
+			$client->send( commoPriceCommandRouter( $read ) );
 			$diff = milliseconds() - $start;
 			echo "Round trip response time: {$diff} milliseconds\n";
 		}
@@ -71,7 +72,7 @@ function onConnect( $client ) {
 	
 }
 
-function imfCommandRouter( $request ) {
+function commoPriceCommandRouter( $request ) {
 	echo "Request: {$request}\n";
 	$commandLine = explode( ' ', $request );
 	if ( count( $commandLine ) < 2 ) {
@@ -79,48 +80,48 @@ function imfCommandRouter( $request ) {
 	};
 	switch (strtolower( $commandLine[0] ) ) {
 		case 'list':
-			return imfSearch( $commandLine[1] );
+			return commoList( $commandLine[1] );
 			break;
 		case 'price':
-			return imfPrice( $commandLine[1] );
+			return commoPrice( $commandLine[1] );
 			break;
 		default:
 			echo 'Enter LIST or PRICE <mutual fund identifier>';
 	}
 }
 
-function cachePrice($security_id, $result) {
+function cachePrice($security_id, $start_date, $result) {
 	global $redis;
 	// Create topic to retrieve from cache
-	$topic = "kaazing.mutualfund.india.".$security_id;
+	$topic = "kaazing.commoprice.imf.".$security_id.$start_date;
 	$redis->set($topic, $result);
-	// Expire cache after 60 seconds
-	$ttl = 60 * 1000;
+	// Expire cache never
+	$ttl = -1;
 	$redis->pexpire($topic, $ttl);
 	return $result;
 }
 
-function getCachedPrice($security_id) {
+function getCachedPrice($security_id, $date) {
 	global $redis;
-	$topic = "kaazing.mutualfund.india.".$security_id;
+	$topic = "kaazing.commoprice.imf.".$security_id.$date;
 	return $redis->get($topic);
 }
 
-function imfPrice( $request ) {
+function commoPrice( $request, $date ) {
 	echo "Price: {$request}\n";	
-	$cached = getCachedPrice($request);
+	$cached = getCachedPrice($request, $date);
 	echo $cached;
 	if ($cached) {
 		return $cached;
 	}
-	$mashape_key = getenv ( "MASHAPE_KEY" );
-	$response = Unirest\Request::post("https://mutualfundsnav.p.mashape.com/",
+	$commoprice_key = getenv ( "COMMOPRICE_KEY" );
+	$response = Unirest\Request::get("https://api.commoprices.com/v1/imf/{$request}/data?start_date={$date}",
 	  array(
-	    "X-Mashape-Key" => $mashape_key,
+	    "authorization:" => "Bearer {$commoprice_key}",
 	    "Content-Type" => "application/json",
 	    "Accept" => "application/json"
 	  ),
-	  "{\"scodes\":[\"{$request}\"]}"
+	  ""
 	);
 	echo "Response code: {$response->code}\n";
 
@@ -131,27 +132,6 @@ function imfPrice( $request ) {
 		$result .= $key." ".$value->date." ".$value->nav." ".$value->change->value." ".$value->change->percent."     ".$value->fund;
 	}	
 	cachePrice($security_id, $result);
-	return $result;
-}
-
-function imfSearch( $request ) {
-	echo "Search: {$request}\n";
-	$mashape_key = getenv ( "MASHAPE_KEY" );
-	$response = Unirest\Request::post("https://mutualfundsnav.p.mashape.com/",
-	  array(
-	    "X-Mashape-Key" => $mashape_key,
-	    "Content-Type" => "application/json",
-	    "Accept" => "application/json"
-	  ),
-	  "{\"search\":\"{$request}\"}"
-	);
-	echo "Response code: {$response->code}\n";
-
-	$result = "";
-	foreach ($response->body as $key => $value) {
-		$result .= $value[0]." - ".$value[3]."\n";
-	};
-	if ( $result  == '' ) { return "Nothing Found"; };
 	return $result;
 }
 

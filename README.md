@@ -81,4 +81,5 @@ Typical Errors
 * Using a forked process model is a very heavy implementaton for a server but it is realistclly the only way to do this simply in PHP
 * A better model would be to use non-blocking IO and an array to manage connection in one process but for the purposes of an example, that would be too complex
 * If there is demand, let support at kaazing.com know and we will post an example
-
+* The server example needs to run as a standalone process and not inside nginx or Apache
+The client example can run inside a web server to retrieve and stage information for the browser and manipulation of the dom.

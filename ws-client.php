@@ -6,8 +6,6 @@ require('vendor/autoload.php');
 
 use WebSocket\Client;
 
-echo var_dump($argv);
-
 # $client = new Client("ws://echo.websocket.org/");
 # $client = new Client("ws://localhost:8000/echo/");
 $client = new Client("ws://localhost:7000/call_pick_up");

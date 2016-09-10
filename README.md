@@ -73,6 +73,7 @@ The cache is expired after 60 seconds. With a combination of WebSocket and cachi
 
 Typical Errors
 --------------
+* Missing `tmp` directory missing in kaazing-community-edition root
 * Most common is to leave the Gateway running while trying to start another one
 * Same for the PHP server
 * Get rate limited by the API shown with a tme out message

@@ -38,6 +38,9 @@ In the root directory
 * Get a list of mutual funds with *birla* in the description `./indian-mutual-fund-client.php LIST birla`
 * You should see a list of 10 funds with their identifiers on the left and description on the right
 * Pick one of them and run `./indian-mutual-fund-client.php PRICE <identifier>`
+* Try the same thing *jpmorgan* in the description `./indian-mutual-fund-client.php LIST birla`
+* You should see a list of 10 funds with their identifiers on the left and description on the right
+* Pick one of them and run `./indian-mutual-fund-client.php PRICE <identifier>`
 
 Run Indian Mutual Fund Example with Caching
 -------------------------------------------
